@@ -1,8 +1,10 @@
-**ELT pipeline using Azure Portal + Fabric designed to fetch daily stock market data for the Top 7 USA tech companies by extracting the data from REST API, storing it in Azure Data Lake, cleaning and transorfming by Fabric and uploading a new data to the Lakehouse**
+**ELT pipeline using Azure Portal + Fabric designed to fetch daily stock market data for the Top 7 USA tech companies by extracting the data from REST API, storing it in Azure Data Lake Storage Gen2 in the bronze container as partitioned Parquet files to optimize cost.**
 
+**Fabric Pipeline triggers the ingestion by timetrigger function and manages the workflow of the dataflow.**
 
+**Dataflow Gen2 cleans the data, loads it into the Lakehouse.**
 
- Screenshots(the biggest challenge so far is dealing with parquet at the transforming stage(Dataflow)):
+ Screenshots (the biggest challenge so far is dealing with parquet at the transforming stage):
  
  **Dataflow**: 
  <img width="1810" height="655" alt="image" src="https://github.com/user-attachments/assets/a00d7234-cbd8-433d-b8e4-bdab57b3dad8" />
