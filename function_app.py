@@ -26,8 +26,11 @@ def StockandExtract(myTimer: func.TimerRequest):
         
         df = pd.DataFrame(data["data"])
         df.set_index("symbol", inplace=True)
+
+        # can't be dropped at loading stage cuz its nested json
         # dropping useless columns even though it's easier to be done using fabric dataflow
-        df.drop(labels= ["index", "adj_low", "adj_high", "adj_open", "adj_close", "dividend", "split_factor", "adj_volume"], axis=1, inplace=True)
+        df = df.drop(labels= ["index", "adj_low", "adj_high", "adj_open", "adj_close", "dividend", "split_factor", "adj_volume"], axis=1)
+
         # setting up the path to save the data in the bronze container for current date
         path = f'abfss://bronze@{name}.dfs.core.windows.net/stocksdata/stocksTOP7USA/date={today}/data.parquet'
         df.to_parquet(path, storage_options={'account_name': name, 'account_key': key})
